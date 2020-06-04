@@ -1,0 +1,94 @@
+{
+  "name": "oss",
+  "description": "Microservice to get the latest public GitHub repos from a user/organization",
+  "homepage": "https://oss.microlink.io",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": {
+    "email": "josefrancisco.verdu@gmail.com",
+    "name": "Kiko Beats",
+    "url": "https://kikobeats.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/microlinkhq/oss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/microlinkhq/oss/issues"
+  },
+  "keywords": [
+    "oss",
+    "microlink",
+    "microservice",
+    "web"
+  ],
+  "dependencies": {
+    "debug-logfmt": "~1.0.4",
+    "github-repositories": "~4.0.0",
+    "lodash": "~4.17.15",
+    "micri": "~4.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "conventional-github-releaser": "latest",
+    "finepack": "latest",
+    "git-authors-cli": "latest",
+    "git-dirty": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "npm-check-updates": "latest",
+    "prettier-standard": "latest",
+    "standard": "latest",
+    "standard-markdown": "latest",
+    "standard-version": "latest",
+    "untracked": "latest"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "build": "untracked > .nowignore",
+    "clean": "rm -rf node_modules",
+    "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
+    "dev": "TZ=UTC NODE_ENV=development DEBUG=oss* watchexec -s SIGKILL -e 'js,css,html' -r 'node src/server.js'",
+    "lint": "standard-markdown README.md && standard",
+    "postrelease": "npm run release:tags && npm run release:github && npm publish",
+    "prerelease": "git-dirty && npm run update:check && npm test && npm run contributors",
+    "pretest": "npm run lint",
+    "release": "git-authors-cli finepack && git add package.json && standard-version -a",
+    "release:github": "conventional-github-releaser -p angular",
+    "release:tags": "git push --follow-tags origin master",
+    "start": "TZ=UTC NODE_ENV=production DEBUG=oss* node index.js",
+    "test": "exit 0",
+    "update": "ncu -u",
+    "update:check": "ncu -- --error-level 2"
+  },
+  "private": true,
+  "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "package.json": [
+      "finepack"
+    ],
+    "*.js": [
+      "prettier-standard"
+    ],
+    "*.md": [
+      "standard-markdown"
+    ]
+  }
+}
