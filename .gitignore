@@ -35,3 +35,4 @@ coverage
 .env
 .envrc
 bin/darwin
+.now
