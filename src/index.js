@@ -2,11 +2,12 @@
 
 const githubRepositories = require('github-repositories')
 const pTimeout = require('p-timeout')
+const debug = require('debug-logfmt')('oss')
 const pReflect = require('p-reflect')
 const { orderBy } = require('lodash')
 const { send } = require('micri')
 
-const { REQ_TIMEOUT, GITHUB_USER, ONE_DAY_SECONDS } = process.env
+const { REQ_TIMEOUT, GITHUB_USER, ONE_DAY_SECONDS } = require('./constants')
 
 let CACHE = {}
 
@@ -18,11 +19,12 @@ module.exports = async (req, res) => {
     `public, must-revalidate, max-age=${ONE_DAY_SECONDS}, s-maxage=${ONE_DAY_SECONDS}, stale-while-revalidate=60`
   )
 
-  const { isFulfilled, value } = await pReflect(
+  const { isFulfilled, value, reason } = await pReflect(
     pTimeout(githubRepositories(GITHUB_USER), REQ_TIMEOUT)
   )
 
   if (isFulfilled) CACHE = orderBy(value, 'stargazers_count', 'desc')
+  else debug.error(reason.message || reason)
 
   return send(res, 200, CACHE)
 }
