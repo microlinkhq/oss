@@ -3,6 +3,5 @@
 module.exports = {
   ...process.env,
   ONE_DAY_SECONDS: 86400,
-  REQ_TIMEOUT: 8000,
-  CACHE: new Map()
+  REQ_TIMEOUT: 8000
 }

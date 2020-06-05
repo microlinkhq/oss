@@ -6,7 +6,9 @@ const pReflect = require('p-reflect')
 const { orderBy } = require('lodash')
 const { send } = require('micri')
 
-const { REQ_TIMEOUT, CACHE, GITHUB_USER, ONE_DAY_SECONDS } = process.env
+const { REQ_TIMEOUT, GITHUB_USER, ONE_DAY_SECONDS } = process.env
+
+let CACHE = {}
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -20,9 +22,7 @@ module.exports = async (req, res) => {
     pTimeout(githubRepositories(GITHUB_USER), REQ_TIMEOUT)
   )
 
-  if (isFulfilled) {
-    CACHE.set('payload', orderBy(value, 'stargazers_count', 'desc'))
-  }
+  if (isFulfilled) CACHE = orderBy(value, 'stargazers_count', 'desc')
 
-  return send(res, 200, CACHE.get('payload'))
+  return send(res, 200, CACHE)
 }
