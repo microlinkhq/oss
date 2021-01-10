@@ -23,8 +23,12 @@ module.exports = async (req, res) => {
     pTimeout(githubRepositories(GITHUB_USER), REQ_TIMEOUT)
   )
 
-  if (isFulfilled) CACHE = orderBy(value, 'stargazers_count', 'desc')
-  else debug.error(reason.message || reason)
+  if (isFulfilled && !isEmpty(value)) {
+    CACHE = orderBy(value, 'stargazers_count', 'desc')
+  }
 
-  return send(res, 200, CACHE)
+  if (!isEmpty(value)) return send(res, 200, CACHE)
+
+  debug.error(reason.message || reason)
+  return send(res, 400)
 }
