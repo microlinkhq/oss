@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
     CACHE = orderBy(value, 'stargazers_count', 'desc')
   }
 
-  if (!isEmpty(value)) return send(res, 200, CACHE)
+  if (!isEmpty(CACHE)) return send(res, 200, CACHE)
 
   debug.error(reason.message || reason)
   return send(res, 400)
