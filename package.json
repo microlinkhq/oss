@@ -27,7 +27,7 @@
     "github-repositories": "~4.0.0",
     "lodash": "~4.17.20",
     "micri": "~4.3.0",
-    "p-reflect": "~2.1.0",
+    "p-reflect": "~3.0.0",
     "p-timeout": "~4.1.0"
   },
   "devDependencies": {
