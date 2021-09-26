@@ -17,9 +17,9 @@
     "url": "https://github.com/microlinkhq/oss/issues"
   },
   "keywords": [
-    "oss",
     "microlink",
     "microservice",
+    "oss",
     "web"
   ],
   "dependencies": {
