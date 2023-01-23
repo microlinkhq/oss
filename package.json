@@ -28,7 +28,7 @@
     "lodash": "~4.17.20",
     "micri": "~4.5.0",
     "p-reflect": "~2.1.0",
-    "p-timeout": "~4.1.0"
+    "p-timeout": "~6.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
