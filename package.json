@@ -26,9 +26,9 @@
     "debug-logfmt": "~1.0.4",
     "github-repositories": "~4.0.0",
     "lodash": "~4.17.20",
-    "micri": "~4.5.0",
     "p-reflect": "~2.1.0",
-    "p-timeout": "~4.1.0"
+    "p-timeout": "~4.1.0",
+    "send-http": "~1.0.2"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
@@ -37,10 +37,10 @@
     "finepack": "latest",
     "git-authors-cli": "latest",
     "git-dirty": "latest",
-    "husky": "latest",
-    "lint-staged": "latest",
+    "nano-staged": "latest",
     "npm-check-updates": "latest",
     "prettier-standard": "latest",
+    "simple-git-hooks": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
     "standard-version": "latest",
@@ -55,7 +55,7 @@
   "scripts": {
     "build": "untracked > .nowignore",
     "clean": "rm -rf node_modules",
-    "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
+    "contributors": "(npx git-authors-cli && npx finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
     "dev": "TZ=UTC NODE_ENV=development DEBUG=oss* watchexec -s SIGKILL -e 'js,css,html' -r 'node src/server.js'",
     "lint": "standard-markdown README.md && standard",
     "postrelease": "npm run release:tags && npm run release:github && npm publish",
@@ -76,13 +76,11 @@
       "@commitlint/config-conventional"
     ]
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
+  "simple-git-hooks": {
+    "commit-msg": "npx commitlint --edit",
+    "pre-commit": "npx nano-staged"
   },
-  "lint-staged": {
+  "nano-staged": {
     "package.json": [
       "finepack"
     ],

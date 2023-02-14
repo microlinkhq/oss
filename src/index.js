@@ -5,11 +5,11 @@ const { isEmpty, orderBy } = require('lodash')
 const debug = require('debug-logfmt')('oss')
 const pTimeout = require('p-timeout')
 const pReflect = require('p-reflect')
-const { send } = require('micri')
+const send = require('send-http')
 
 const { REQ_TIMEOUT, GITHUB_USER, ONE_DAY_SECONDS } = require('./constants')
 
-let CACHE = {}
+let CACHE = Object.create(null)
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
