@@ -1,5 +1,6 @@
 <div align="center">
-  <img src="https://cdn.microlink.io/banner/oss.png" alt="microlink oss">
+  <img src="https://github.com/microlinkhq/cdn/raw/master/dist/banner/oss.png#gh-light-mode-only" alt="microlink oss">
+  <img src="https://github.com/microlinkhq/cdn/raw/master/dist/banner/oss-dark.png#gh-dark-mode-only" alt="microlink oss">
   <br>
   <br>
 </div>
