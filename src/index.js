@@ -14,10 +14,10 @@ let CACHE = Object.create(null)
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('content-type', 'application/json; charset=utf-8')
-  res.setHeader(
-    'cache-control',
-    `public, must-revalidate, max-age=${ONE_DAY_SECONDS}, s-maxage=${ONE_DAY_SECONDS}, stale-while-revalidate=60`
-  )
+
+  const cacheControl = `public, must-revalidate, max-age=${ONE_DAY_SECONDS}, s-maxage=${ONE_DAY_SECONDS}, stale-while-revalidate=60`
+  res.setHeader('cache-control', cacheControl)
+  res.setHeader('cdn-cache-control', cacheControl)
 
   const { isFulfilled, value, reason } = await pReflect(
     pTimeout(githubRepositories(GITHUB_USER), REQ_TIMEOUT)
