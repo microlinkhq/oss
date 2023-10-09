@@ -23,7 +23,7 @@
     "web"
   ],
   "dependencies": {
-    "debug-logfmt": "~1.0.4",
+    "debug-logfmt": "~1.2.0",
     "github-repositories": "~4.0.0",
     "lodash": "~4.17.20",
     "p-reflect": "~2.1.0",
