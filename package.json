@@ -28,7 +28,7 @@
     "lodash": "~4.18.1",
     "p-reflect": "~2.1.0",
     "p-timeout": "~4.1.0",
-    "send-http": "~2.0.0"
+    "send-http": "~3.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
