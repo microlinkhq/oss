@@ -9,7 +9,8 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "DEBUG": "oss*"
+    "DEBUG": "oss*",
+    "NODE_OPTIONS": "--experimental-require-module"
   },
   "routes": [
     {
